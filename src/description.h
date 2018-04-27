@@ -1,95 +1,53 @@
 /**
  * @file description.h
  *
+ * @author Simon Petit
  */
 #ifndef LSDP_DESCRIPTION_H
 #define LSDP_DESCRIPTION_H
 
+#include "types.h"
 #include <stdlib.h>
-
-typedef enum lsdp_network_type_t lsdp_network_type_t;
-
-enum lsdp_network_type_t {
-    IN /**< Internet. */
-};
-
-typedef enum lsdp_address_type_t lsdp_address_type_t;
-
-enum lsdp_address_type_t {
-    IP4, /**< IPv4. */
-    IP6 /**< IPv6. */
-};
-
-typedef enum lsdp_bandwidth_type_t lsdp_bandwidth_type_t;
-
-enum lsdp_bandwidth_type_t {
-    CT, /**< Conference Total. */
-    AS /**< Application specific. */
-};
-
-typedef enum lsdp_encryption_method_t lsdp_encryption_method_t;
-
-enum lsdp_encryption_method_t {
-    CLEAR,
-    BASE64,
-    URI,
-    PROMPT
-};
-
-typedef enum lsdp_media_type_t lsdp_media_type_t;
-
-enum lsdp_media_type_t {
-    AUDIO,
-    VIDEO,
-    TEXT,
-    APPLICATION,
-    MESSAGE
-};
-
-typedef enum lsdp_attribute_type_t lsdp_attribute_type_t;
-
-enum lsdp_attribute_type_t {
-    CAT,
-    KEYWDS,
-    TOOL,
-    PTIME,
-    MAXPTIME,
-    RTPMAP,
-    RECVONLY,
-    SENDRECV,
-    SENDONLY,
-    INACTIVE,
-    ORIENT,
-    TYPE,
-    CHARSET,
-    SDPLANG,
-    LANG,
-    FRAMERATE,
-    QUALITY,
-    FMTP
-};
 
 typedef struct lsdp_origin_t lsdp_origin_t;
 
+/**
+ * @struct lsdp_origin_t
+ *
+ */
 struct lsdp_origin_t {
-    char *username; /**< Must not contain space. */
-    char *o_sess_id;
-    char *o_sess_version;
-    lsdp_network_type_t o_nettype; /**< Network type of the session. */
-    lsdp_address_type_t o_addrtype; /**< IP address type of the session. */
-    char *o_unicast_address; /**< IP address formatted with point notation. */
+    char *username; /**< The user's name. Must not contain space. It is '-' if
+                      no username specified.*/
+    char *sess_id; /**< Numeric string that forms a unique identifier of the 
+                     session. */
+    char *sess_version; /**< Verison number of this session. Should be increased
+                          when a modificiation is made to the session data. */
+    lsdp_network_type_t nettype; /**< Network type of the session. */
+    lsdp_address_type_t addrtype; /**< IP address type of the session. */
+    char *unicast_address; /**< IP address formatted with point notation. */
 };
 
 
 typedef struct lsdp_time_description_t lsdp_time_description_t;
 
+/**
+ * @struct lsdp_time_description_t
+ *
+ */
 struct lsdp_time_description_t {
-    char *t;
-    char *r;
+    char *start; /**< Start time of the session. */
+    char *stop; /**< Stop time of the session. */
+    char *repeat_interval; /**< .*/
+    char *active_duration;
+    char *offset;
 };
 
 typedef struct lsdp_time_zone_t lsdp_time_zone_t;
 
+/**
+ * @struct lsdp_time_zone_t
+ *
+ */
 struct lsdp_time_zone_t {
     char *adjustment_time;
     char *offset;
@@ -97,21 +55,34 @@ struct lsdp_time_zone_t {
 
 typedef struct lsdp_encryption_key_t lsdp_encryption_key_t;
 
+/**
+ * @struct lsdp_encryption_key_t
+ *
+ */
 struct lsdp_encryption_key_t {
-    lsdp_encryption_method_t method;
-    char *encryption_key;
+    lsdp_encryption_method_t method; /**< Method of encryption for the key. */
+    char *encryption_key; /**< The key used for the encryption. */
 };
 
 typedef struct lsdp_connection_description_t lsdp_connection_description_t;
 
+/**
+ * @struct lsdp_connection_description_t
+ *
+ */
 struct lsdp_connection_description_t {
-    lsdp_network_type_t nettype;
-    lsdp_address_type_t addrtype;
-    char *connection_address;
+    lsdp_network_type_t nettype; /**< Type of the network.*/
+    lsdp_address_type_t addrtype; /**< IP address type. */
+    char *connection_address; /**< IP connection address, in dot standard 
+                                format. */
 };
 
 typedef struct lsdp_attribute_t lsdp_attribute_t;
 
+/**
+ * @struct lsdp_attribute_t
+ *
+ */
 struct lsdp_attribute_t {
     char *attribute;
     char *value;
@@ -119,6 +90,10 @@ struct lsdp_attribute_t {
 
 typedef struct lsdp_media_description_t lsdp_media_description_t;
 
+/**
+ * @struct lsdp_media_description_t
+ *
+ */
 struct lsdp_media_description_t {
     lsdp_media_type_t media;
     int port;
@@ -129,17 +104,19 @@ struct lsdp_media_description_t {
 typedef struct lsdp_description_t lsdp_description_t;
 
 /**
- * @struct 
+ * @struct lsdp_description_t
+ * 
  */
 struct lsdp_description_t {
-    int v;
+    int v; /**< Version number, currently 0. */
     lsdp_origin_t *o;
-    char *s; /**< Session name, MUST at least be one character. */
+    char *s; /**< Session name, MUST at least be one character (whitespace
+               if not provided). */
     char *i; /**< Session title or short information. */
     char *u; /**< URI of the description. */
     char **e; /**< Emails with optional contact names. */
     char **p; /**< Phone numbers with optional contact names. */
-    char *c; /**< Connection information. */
+    lsdp_connection_description_t *c; /**< Connection information. */
     char *b; /**< Bandwidth information. */
     lsdp_time_description_t **times;
     lsdp_time_zone_t **z;
@@ -149,8 +126,18 @@ struct lsdp_description_t {
 
 };
 
+/**
+ * @brief Allocate the memory of a new description.
+ *
+ * @return A pointer to a neutral description.
+ */
 lsdp_description_t* lsdp_description_new(void);
 
+/**
+ * @brief Free the allocated memory of every struct involved in the description.
+ *
+ * @param[in] desc A pointer to the description to free.
+ */
 void lsdp_description_free(lsdp_description_t *desc);
 
 #endif

@@ -1,6 +1,7 @@
 /**
  * @file description.c
  *
+ * @author Simon Petit
  */
 
 #include "description.h"
