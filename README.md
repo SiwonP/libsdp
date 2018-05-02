@@ -36,3 +36,14 @@ doxygen Doxyfile
 
 It creates a `doc` folder containing both `html` and `latex` version of the
 documentation.
+
+- To open the documentation in the browser, open the `doc/html/index.html` file.
+
+- To open the pdf version :
+
+```
+cd doc/latex
+make
+```
+
+The pdf is called ``refman.pdf`.
