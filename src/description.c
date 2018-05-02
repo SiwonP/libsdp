@@ -6,24 +6,24 @@
 
 #include "description.h"
 
-lsdp_description_t* lsdp_description_new(void)
+lsdp_session_t* lsdp_session_new(void)
 {
-    lsdp_description_t *description;
-    description = (lsdp_description_t *)malloc(sizeof(lsdp_description_t));
+    lsdp_session_t *session;
+    session = (lsdp_session_t *)malloc(sizeof(lsdp_session_t));
 
-    description->v = 0;
+    session->v = 0;
 
-    return description;
+    return session;
 }
 
-void lsdp_description_free(lsdp_description_t *desc)
+void lsdp_session_free(lsdp_session_t *sess)
 {
-    free(desc->o);
-    free(desc->times);
-    free(desc->z);
-    free(desc->k);
-    free(desc->a);
-    free(desc->m);
+    free(sess->o);
+    free(sess->times);
+    free(sess->z);
+    free(sess->k);
+    free(sess->a);
+    free(sess->m);
 
-    free(desc);
+    free(sess);
 }
