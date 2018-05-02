@@ -46,4 +46,4 @@ cd doc/latex
 make
 ```
 
-The pdf is called ``refman.pdf`.
+The pdf is called `refman.pdf`.
