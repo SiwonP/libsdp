@@ -9,6 +9,10 @@
 #include "types.h"
 #include <stdlib.h>
 
+/**
+ * @typedef lsdp_origin_t
+ *
+ */
 typedef struct lsdp_origin_t lsdp_origin_t;
 
 /**
@@ -28,6 +32,10 @@ struct lsdp_origin_t {
 };
 
 
+/**
+ * @typedef lsdp_time_description_t
+ *
+ */
 typedef struct lsdp_time_description_t lsdp_time_description_t;
 
 /**
@@ -42,6 +50,10 @@ struct lsdp_time_description_t {
     char *offset;
 };
 
+/**
+ * @typedef lsdp_time_zone_t
+ *
+ */
 typedef struct lsdp_time_zone_t lsdp_time_zone_t;
 
 /**
@@ -53,6 +65,10 @@ struct lsdp_time_zone_t {
     char *offset;
 };
 
+/**
+ * @typedef lsdp_encryption_key_t
+ *
+ */
 typedef struct lsdp_encryption_key_t lsdp_encryption_key_t;
 
 /**
@@ -64,6 +80,10 @@ struct lsdp_encryption_key_t {
     char *encryption_key; /**< The key used for the encryption. */
 };
 
+/**
+ * @typedef lsdp_connection_description_t
+ *
+ */
 typedef struct lsdp_connection_description_t lsdp_connection_description_t;
 
 /**
@@ -77,6 +97,10 @@ struct lsdp_connection_description_t {
                                 format. */
 };
 
+/**
+ * @typedef lsdp_attribute_t
+ *
+ */
 typedef struct lsdp_attribute_t lsdp_attribute_t;
 
 /**
@@ -88,6 +112,10 @@ struct lsdp_attribute_t {
     char *value;
 };
 
+/**
+ * @typedef lsdp_media_description_t
+ *
+ */
 typedef struct lsdp_media_description_t lsdp_media_description_t;
 
 /**
@@ -101,6 +129,10 @@ struct lsdp_media_description_t {
     char *fmt;
 };
 
+/**
+ * @typedef lsdp_description_t
+ *
+ */
 typedef struct lsdp_description_t lsdp_description_t;
 
 /**
