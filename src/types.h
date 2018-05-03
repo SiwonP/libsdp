@@ -31,7 +31,7 @@ enum lsdp_address_type_t {
 typedef enum lsdp_bandwidth_type_t lsdp_bandwidth_type_t;
 
 /**
- * @enum lsdp_bandowidth_type_t
+ * @enum lsdp_bandwidth_type_t
  *
  */
 enum lsdp_bandwidth_type_t {

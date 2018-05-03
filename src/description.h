@@ -18,6 +18,7 @@ typedef struct lsdp_origin_t lsdp_origin_t;
 /**
  * @struct lsdp_origin_t
  *
+ * @brief Gathering of basic info about the session and the user.
  */
 struct lsdp_origin_t {
     char *username; /**< The user's name. Must not contain space. It is '-' if
@@ -41,6 +42,7 @@ typedef struct lsdp_time_t lsdp_time_t;
 /**
  * @struct lsdp_time_t
  *
+ * @brief Timing information of the session.
  */
 struct lsdp_time_t {
     char *start; /**< Start time of the session. */
@@ -59,6 +61,7 @@ typedef struct lsdp_time_zone_t lsdp_time_zone_t;
 /**
  * @struct lsdp_time_zone_t
  *
+ * @brief Time zone adjustment.
  */
 struct lsdp_time_zone_t {
     char *adjustment_time;
@@ -74,6 +77,7 @@ typedef struct lsdp_encryption_key_t lsdp_encryption_key_t;
 /**
  * @struct lsdp_encryption_key_t
  *
+ * @brief Encryption key method and value.
  */
 struct lsdp_encryption_key_t {
     lsdp_encryption_method_t method; /**< Method of encryption for the key. */
@@ -89,6 +93,7 @@ typedef struct lsdp_connection_t lsdp_connection_t;
 /**
  * @struct lsdp_connection_t
  *
+ * @brief Relative information about the session's connection.
  */
 struct lsdp_connection_t {
     lsdp_network_type_t nettype; /**< Type of the network.*/
@@ -106,10 +111,11 @@ typedef struct lsdp_attribute_t lsdp_attribute_t;
 /**
  * @struct lsdp_attribute_t
  *
+ * @brief Attribute described by its name and optionnal value.
  */
 struct lsdp_attribute_t {
-    char *attribute;
-    char *value;
+    char *attribute; /**< Name of the attribute. */
+    char *value; /**< If needed, value of the attribute. */
 };
 
 /**
@@ -121,27 +127,29 @@ typedef struct lsdp_media_t lsdp_media_t;
 /**
  * @struct lsdp_media_t
  *
+ * @brief Describe a media which will be use during the session.
  */
 struct lsdp_media_t {
-    lsdp_media_type_t media;
-    int port;
-    char *proto;
-    char *fmt;
+    lsdp_media_type_t media_type; /**< Type of media. */
+    int port; /**< Port on which to receive data. */
+    char *proto; /**< Transport protocol. */
+    char *fmt; /**< Format description. */
 };
 
 /**
- * @typedef lsdp_session_description_t
+ * @typedef lsdp_session_t
  *
  */
 typedef struct lsdp_session_t lsdp_session_t;
 
 /**
- * @struct lsdp_session_description_t
+ * @struct lsdp_session_t
  * 
+ * @brief Whole description of a session.
  */
 struct lsdp_session_t {
     int v; /**< Version number, currently 0. */
-    lsdp_origin_t *o;
+    lsdp_origin_t *o; /**< Basic info about the user and the session. */ 
     char *s; /**< Session name, MUST at least be one character (whitespace
                if not provided). */
     char *i; /**< Session title or short information. */
@@ -150,12 +158,13 @@ struct lsdp_session_t {
     char **p; /**< Phone numbers with optional contact names. */
     lsdp_connection_t *c; /**< Connection information. */
     char *b; /**< Bandwidth information. */
-    lsdp_time_t **times;
-    lsdp_time_zone_t **z;
-    lsdp_encryption_key_t *k;
-    lsdp_attribute_t **a;
-    lsdp_media_t **m;
-
+    lsdp_time_t **times; /**< Stop, start and repeat timing information
+                           of the session. */
+    lsdp_time_zone_t **z; /**< Adujusting time zones parameter. */
+    lsdp_encryption_key_t *k; /**< Encryption key. */
+    lsdp_attribute_t **a; /**< Session-level attributes that apply to the whole
+                            seesion. */
+    lsdp_media_t **m; /**< Medias used by the session. */
 };
 
 /**
@@ -168,7 +177,7 @@ lsdp_session_t* lsdp_session_new(void);
 /**
  * @brief Free the allocated memory of every struct involved in the description.
  *
- * @param[in] desc A pointer to the description to free.
+ * @param[in] sess A pointer to the description to free.
  */
 void lsdp_session_free(lsdp_session_t *sess);
 
