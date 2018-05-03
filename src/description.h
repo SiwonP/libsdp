@@ -168,9 +168,9 @@ struct lsdp_session_t {
 };
 
 /**
- * @brief Allocate the memory of a new description.
+ * @brief Allocate the memory of a new lsdp_seesion_t.
  *
- * @return A pointer to a neutral description.
+ * @return A pointer to a neutral session.
  */
 lsdp_session_t* lsdp_session_new(void);
 
@@ -180,5 +180,13 @@ lsdp_session_t* lsdp_session_new(void);
  * @param[in] sess A pointer to the description to free.
  */
 void lsdp_session_free(lsdp_session_t *sess);
+
+/**
+ * @brief Allocate the memore of a new origin and add the given parameters.
+ *
+ * @return A pointer to the said lsdp_origin_t filled structure.
+ */
+lsdp_origin_t *lsdp_origin_new(void);
+
 
 #endif

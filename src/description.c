@@ -27,3 +27,12 @@ void lsdp_session_free(lsdp_session_t *sess)
 
     free(sess);
 }
+
+lsdp_origin_t *lsdp_origin_new(void)
+{
+    lsdp_origin_t *origin = (lsdp_origin_t *)malloc(sizeof(lsdp_origin_t));
+
+
+    return origin;
+
+}
