@@ -11,7 +11,9 @@ IETF.
 The project is meant to be build via `CMake` and `Make`. You should also have a C
 compiler (whether it be GCC or CLANG).
 
-### Building 
+## Installing
+
+### Building from source
 
 Follow the instructions below to build the library.
 
@@ -24,7 +26,17 @@ cmake -DBUILD_TYPE=RELEASE ..
 make
 ```
 
+### Binaries
+
+There are no binaries released currently.
+
+### Packages
+
+There are no packages available so far.
+
 ## Running the tests
+
+No test are yet implemented.
 
 ## Building the doc
 
@@ -47,3 +59,11 @@ make
 ```
 
 The pdf is called `refman.pdf`.
+
+## Authors
+
+- Simon Petit - Initial contributer and only author so far.
+
+## License
+
+This library is under the GNU General Public License, see LICENSE for details.
