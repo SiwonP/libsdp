@@ -186,7 +186,8 @@ void lsdp_session_free(lsdp_session_t *sess);
  *
  * @return A pointer to the said lsdp_origin_t filled structure.
  */
-lsdp_origin_t *lsdp_origin_new(void);
+lsdp_origin_t *lsdp_origin_new(void *username, lsdp_network_type_t nettype, 
+        lsdp_address_type_t addrtype, char *address);
 
 
 #endif
