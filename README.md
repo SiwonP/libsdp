@@ -6,7 +6,7 @@ IETF.
 
 - [Getting Started](#getting-started)
     * [Prerequisites](#prerequisites)
-    * [Documentation Prerequisites](#documentation-prerequisites)
+    * [Documentation Prerequisites](#documentation-prerequisites)
 - [Installing](#installing)
     * [Building from source](#building-form-source)
     * [Binaries](#binaries)
