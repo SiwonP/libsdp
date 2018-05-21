@@ -4,14 +4,26 @@ This library, entirely in C and using only the C standard libraries, implements
 the Session Description Protocol - SDP - as described by the RCF 4566 of the
 IETF.
 
+- [Getting Started](#getting-started)
+    * [Prerequisites](#prerequisites)
+    * [Documentation Prerequisites](#documentation-prerequisites)
+- [Installing](#installing)
+    * [Building from source](#building-form-source)
+    * [Binaries](#binaries)
+    * [Packages](#packages)
+- [Running the tests](#running-the-tests)
+- [Building the doc](#building-the-doc)
+- [Authors](#authors)
+- [License](#license)
+
 ## Getting Started
 
-### Prequisites
+### Prerequisites
 
 The project is meant to be build via `CMake` and `Make`. You should also have a C
 compiler (whether it be GCC or CLANG).
 
-### Documentation Prequisites
+### Documentation Prerequisites
 
 The documentation is made thanks to `doxygen`, so you must have it installed on
 your machine.
