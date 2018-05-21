@@ -11,6 +11,14 @@ IETF.
 The project is meant to be build via `CMake` and `Make`. You should also have a C
 compiler (whether it be GCC or CLANG).
 
+### Documentation Prequisites
+
+The documentation is made thanks to `doxygen`, so you must have it installed on
+your machine.
+
+See [here](http://www.stack.nl/~dimitri/doxygen/download.html) to install
+`doxygen`.
+
 ## Installing
 
 ### Building from source
