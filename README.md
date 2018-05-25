@@ -86,4 +86,5 @@ The pdf is called `refman.pdf`.
 
 ## License
 
-This library is under the GNU General Public License, see LICENSE for details.
+This library is under the GNU General Public License, see
+[LICENSE](https://github.com/SiwonP/libsdp/blob/master/LICENSE) for details.
