@@ -38,8 +38,8 @@ See [here](http://www.stack.nl/~dimitri/doxygen/download.html) to install
 Follow the instructions below to build the library.
 
 ```
-git clone 
-cd 
+git clone https://github.com/SiwonP/libsdp.git
+cd libsdp
 mkdir build
 cd build
 cmake -DBUILD_TYPE=RELEASE ..
