@@ -1,4 +1,4 @@
-# libsdp
+# libsdp ![travis](https://travis-ci.org/SiwonP/libsdp.svg?branch=master)
 
 This library, entirely in C and using only the C standard libraries, implements
 the Session Description Protocol - SDP - as described by the RCF 4566 of the
