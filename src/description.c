@@ -6,12 +6,19 @@
 
 #include "description.h"
 
-lsdp_session_t* lsdp_session_new(void)
+lsdp_session_t* lsdp_session_new(lsdp_origin_t *origin, char *session_name,
+        char *info, char *uri, char *email, char *phone)
 {
     lsdp_session_t *session;
     session = (lsdp_session_t *)malloc(sizeof(lsdp_session_t));
 
     session->v = 0;
+    session->o = origin;
+    session->s = session_name;
+    session->i = info;
+    session->u = uri;
+    session->e = email;
+    session->p = phone;
 
     return session;
 }
@@ -44,4 +51,27 @@ lsdp_origin_t *lsdp_origin_new(void *username, lsdp_network_type_t nettype,
     origin->unicast_address = address;
 
     return origin;
+}
+
+void lsdp_origin_free(lsdp_origin_t *origin)
+{
+    free(origin);
+}
+
+lsdp_connection_t *lsdp_connection_new(lsdp_network_type_t nettype, 
+        lsdp_address_type_t addrtype, char *connection_address)
+{
+    lsdp_connection_t *connection;
+    connection = (lsdp_connection_t *)malloc(sizeof(lsdp_connection_t));
+
+    connection->nettype = nettype;
+    connection->addrtype = addrtype;
+    connection->connection_address = connection_address;
+
+    return connection;
+}
+
+void lsdp_connection_free(lsdp_connection_t *connection)
+{
+    free(connection);
 }

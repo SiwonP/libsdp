@@ -8,6 +8,7 @@
 
 #include "types.h"
 #include <stdlib.h>
+#include <errno.h>
 
 /**
  * @typedef lsdp_origin_t
@@ -154,8 +155,8 @@ struct lsdp_session_t {
                if not provided). */
     char *i; /**< Session title or short information. */
     char *u; /**< URI of the description. */
-    char **e; /**< Emails with optional contact names. */
-    char **p; /**< Phone numbers with optional contact names. */
+    char *e; /**< Email with optional contact name. */
+    char *p; /**< Phone number with optional contact name. */
     lsdp_connection_t *c; /**< Connection information. */
     char *b; /**< Bandwidth information. */
     lsdp_time_t **times; /**< Stop, start and repeat timing information
@@ -172,7 +173,8 @@ struct lsdp_session_t {
  *
  * @return A pointer to a neutral session.
  */
-lsdp_session_t* lsdp_session_new(void);
+lsdp_session_t* lsdp_session_new(lsdp_origin_t *origin, char *session_name,
+        char *info, char *uri, char *email, char *phone);
 
 /**
  * @brief Free the allocated memory of every struct involved in the description.
@@ -188,6 +190,28 @@ void lsdp_session_free(lsdp_session_t *sess);
  */
 lsdp_origin_t *lsdp_origin_new(void *username, lsdp_network_type_t nettype, 
         lsdp_address_type_t addrtype, char *address);
+
+/**
+ * @brief Free the memory of an origin structure.
+ *
+ * @param[in] origin A lsdp_origin_t pointer.
+ *
+ */
+void lsdp_origin_free(lsdp_origin_t *origin);
+
+/**
+ * @brief Allocate mamory for a connection specification structure.
+ *
+ * @return A pointer to a lsdp_connection_t structure.
+ */
+lsdp_connection_t *lsdp_connection_new();
+
+/**
+ * @brief Free the memory of the connection structure.
+ *
+ * @param[in] connection A lsdp_connection_t pointer.
+ */
+void lsdp_connection_free(lsdp_connection_t *connection);
 
 
 #endif
