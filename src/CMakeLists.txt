@@ -1,7 +1,7 @@
 add_library(
-    libsdp SHARED
+    sdp SHARED
     description.c
     )
 
-set_target_properties(libsdp PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(sdp PROPERTIES VERSION ${PROJECT_VERSION})
 

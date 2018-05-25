@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.6)
-project(libsdp VERSION 1.0.0 DESCRIPTION "SDP implementation conforming to the
-RFC 4566")
+
+project(libsdp VERSION 1.0.0)
 
 enable_testing()
 
