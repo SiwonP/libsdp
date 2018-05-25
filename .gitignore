@@ -56,3 +56,8 @@ dkms.conf
 
 # Documentation
 doc/
+
+# Build
+build
+release
+debug
