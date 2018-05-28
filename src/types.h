@@ -93,4 +93,12 @@ enum lsdp_attribute_type_t {
     FMTP
 };
 
+typedef enum lsdp_protocol_type_t lsdp_protocol_type_t;
+
+enum lsdp_protocol_type_t {
+    UDP,
+    RTP_AVP,
+    RTP_SAVP
+};
+
 #endif

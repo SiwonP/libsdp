@@ -9,6 +9,7 @@
 #include "types.h"
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
 
 /**
  * @typedef lsdp_origin_t
@@ -115,7 +116,7 @@ typedef struct lsdp_attribute_t lsdp_attribute_t;
  * @brief Attribute described by its name and optionnal value.
  */
 struct lsdp_attribute_t {
-    char *attribute; /**< Name of the attribute. */
+    lsdp_attribute_type_t name; /**< Name of the attribute. */
     char *value; /**< If needed, value of the attribute. */
 };
 
@@ -183,6 +184,18 @@ lsdp_session_t* lsdp_session_new(lsdp_origin_t *origin, char *session_name,
  */
 void lsdp_session_free(lsdp_session_t *sess);
 
+
+/**
+ * @brief Check the given session name, and replace it to " " in the case it is
+ * a NULL pointer or an empty string. This follow the recomendations of the RFC.
+ *
+ * @param[in] session_name A session name string to check
+ *
+ * @return A valid name for the session : The given session name if it was
+ * already correctly formatted, " " in any other case.
+ */
+char *check_session_name(char *session_name);
+
 /**
  * @brief Allocate the memore of a new origin and add the given parameters.
  *
@@ -212,6 +225,20 @@ lsdp_connection_t *lsdp_connection_new();
  * @param[in] connection A lsdp_connection_t pointer.
  */
 void lsdp_connection_free(lsdp_connection_t *connection);
+
+/**
+ * @brief Allocate memory for a attribute structure.
+ *
+ * @return A pointer to a lsdp_attribute_structure.
+ */
+lsdp_attribute_t *lsdp_attribute_new();
+
+/**
+ * @brief Allocate memory for a new media structure.
+ *
+ * @return A pointer to a lsdp_media_t strcuture.
+ */
+lsdp_media_t *lsdp_media_new();
 
 
 #endif
