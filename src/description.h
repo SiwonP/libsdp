@@ -136,6 +136,8 @@ struct lsdp_media_t {
     int port; /**< Port on which to receive data. */
     char *proto; /**< Transport protocol. */
     char *fmt; /**< Format description. */
+    lsdp_attribute_t **attributes; /**< Attributes on the media level. */
+    int count_attributes; /**< Number of attributes of the media level. */
 };
 
 /**
@@ -150,23 +152,23 @@ typedef struct lsdp_session_t lsdp_session_t;
  * @brief Whole description of a session.
  */
 struct lsdp_session_t {
-    int v; /**< Version number, currently 0. */
-    lsdp_origin_t *o; /**< Basic info about the user and the session. */ 
-    char *s; /**< Session name, MUST at least be one character (whitespace
-               if not provided). */
-    char *i; /**< Session title or short information. */
-    char *u; /**< URI of the description. */
-    char *e; /**< Email with optional contact name. */
-    char *p; /**< Phone number with optional contact name. */
-    lsdp_connection_t *c; /**< Connection information. */
-    char *b; /**< Bandwidth information. */
+    int version; /**< Version number, currently 0. */
+    lsdp_origin_t *origin; /**< Basic info about the user and the session. */ 
+    char *session_name; /**< Session name, MUST at least be one character (whitespace if not provided). */
+    char *information; /**< Session title or short information. */
+    char *uri; /**< URI of the description. */
+    char *email; /**< Email with optional contact name. */
+    char *phone; /**< Phone number with optional contact name. */
+    lsdp_connection_t *connection; /**< Connection information. */
+    char *bandwidth; /**< Bandwidth information. */
     lsdp_time_t **times; /**< Stop, start and repeat timing information
                            of the session. */
-    lsdp_time_zone_t **z; /**< Adujusting time zones parameter. */
-    lsdp_encryption_key_t *k; /**< Encryption key. */
-    lsdp_attribute_t **a; /**< Session-level attributes that apply to the whole
-                            seesion. */
-    lsdp_media_t **m; /**< Medias used by the session. */
+    lsdp_time_zone_t **time_zones; /**< Adujusting time zones parameter. */
+    lsdp_encryption_key_t *encryption_key; /**< Encryption key. */
+    lsdp_attribute_t **attributes; /**< Session-level attributes that apply to the whole seesion. */
+    int count_attributes; /**< Number of attributes on session level. */
+    lsdp_media_t **media_descriptions; /**< Medias used by the session. */
+    int count_media; /**< Number of medias. */
 };
 
 /**
@@ -175,7 +177,8 @@ struct lsdp_session_t {
  * @return A pointer to a neutral session.
  */
 lsdp_session_t* lsdp_session_new(lsdp_origin_t *origin, char *session_name,
-        char *info, char *uri, char *email, char *phone);
+        char *info, char *uri, char *email, char *phone,
+        lsdp_connection_t *connection);
 
 /**
  * @brief Free the allocated memory of every struct involved in the description.
@@ -217,7 +220,8 @@ void lsdp_origin_free(lsdp_origin_t *origin);
  *
  * @return A pointer to a lsdp_connection_t structure.
  */
-lsdp_connection_t *lsdp_connection_new();
+lsdp_connection_t *lsdp_connection_new(lsdp_network_type_t nettype,
+        lsdp_address_type_t addrtype, char *connection_address);
 
 /**
  * @brief Free the memory of the connection structure.
@@ -231,14 +235,16 @@ void lsdp_connection_free(lsdp_connection_t *connection);
  *
  * @return A pointer to a lsdp_attribute_structure.
  */
-lsdp_attribute_t *lsdp_attribute_new();
+lsdp_attribute_t *lsdp_attribute_new(lsdp_attribute_type_t name,
+        char *value);
 
 /**
  * @brief Allocate memory for a new media structure.
  *
  * @return A pointer to a lsdp_media_t strcuture.
  */
-lsdp_media_t *lsdp_media_new();
+lsdp_media_t *lsdp_media_new(lsdp_media_type_t media_type, int port, char *proto,
+        char *fmt);
 
 
 #endif

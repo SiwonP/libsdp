@@ -7,30 +7,39 @@
 #include "description.h"
 
 lsdp_session_t* lsdp_session_new(lsdp_origin_t *origin, char *session_name,
-        char *info, char *uri, char *email, char *phone)
+        char *info, char *uri, char *email, char *phone,
+        lsdp_connection_t *connection)
 {
     lsdp_session_t *session;
     session = (lsdp_session_t *)malloc(sizeof(lsdp_session_t));
 
-    session->v = 0;
-    session->o = origin;
-    session->s = check_session_name(session_name);
-    session->i = info;
-    session->u = uri;
-    session->e = email;
-    session->p = phone;
+    session->version = 0;
+    session->origin = origin;
+    session->session_name = check_session_name(session_name);
+    session->information = info;
+    session->uri = uri;
+    session->email = email;
+    session->phone = phone;
+    session->connection = connection;
+    session->bandwidth = NULL;
+
+    session->encryption_key = NULL;
+    session->attributes = NULL;
+    session->count_attributes = 0;
+    session->media_descriptions = NULL;
+    session->count_media = 0;
 
     return session;
 }
 
 void lsdp_session_free(lsdp_session_t *sess)
 {
-    free(sess->o);
+    free(sess->origin);
     free(sess->times);
-    free(sess->z);
-    free(sess->k);
-    free(sess->a);
-    free(sess->m);
+    free(sess->time_zones);
+    free(sess->encryption_key);
+    free(sess->attributes);
+    free(sess->media_descriptions);
 
     free(sess);
 }
