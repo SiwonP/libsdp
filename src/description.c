@@ -4,7 +4,7 @@
  * @author Simon Petit
  */
 
-#include "description.h"
+#include "sdp.h"
 
 lsdp_session_t* lsdp_session_new(lsdp_origin_t *origin, char *session_name,
         char *info, char *uri, char *email, char *phone,
@@ -24,10 +24,14 @@ lsdp_session_t* lsdp_session_new(lsdp_origin_t *origin, char *session_name,
     session->bandwidth = NULL;
 
     session->encryption_key = NULL;
-    session->attributes = NULL;
-    session->count_attributes = 0;
-    session->media_descriptions = NULL;
-    session->count_media = 0;
+    session->attributes_count = 0;
+    session->attributes_capacity = 3;
+    session->attributes = calloc(session->attributes_capacity,
+            sizeof(lsdp_attribute_t*));
+    session->media_count = 0;
+    session->media_capacity = 3;
+    session->media_descriptions = calloc(session->media_capacity, 
+            sizeof(lsdp_media_t*));
 
     return session;
 }
@@ -112,12 +116,56 @@ lsdp_media_t *lsdp_media_new(lsdp_media_type_t media_type, int port, char *proto
         char *fmt)
 {
     lsdp_media_t *media;
-    media = (lsdp_media_t *)malloc(sizeof(lsdp_media_t));
+    media = (lsdp_media_t *)malloc(sizeof(lsdp_media_t*));
 
     media->media_type = media_type;
     media->port = port;
     media->proto = proto;
     media->fmt = fmt;
+    media->attributes = NULL;
+    media->attributes_count = 0;
+    media->attributes_capacity = 3;
 
     return media;
+}
+
+int lsdp_append_media_to_session(lsdp_session_t *session, lsdp_media_t *media)
+{
+    int n;
+    if (session->media_count >= session->media_capacity) {
+        session->media_capacity *=2;
+        session->media_descriptions = realloc(session->media_descriptions,
+                session->media_capacity * sizeof(lsdp_media_t*));
+    }
+    session->media_descriptions[session->media_count] = media;
+    session->media_count++;
+    return n;
+}
+
+int lsdp_append_attribute_to_session(lsdp_session_t *session,
+        lsdp_attribute_t *attribute)
+{
+    int n;
+    if (session->attributes_count >= session->attributes_capacity) {
+        session->attributes_capacity *= 2;
+        session->attributes = realloc(session->attributes,
+                session->attributes_capacity * sizeof(lsdp_attribute_t*));
+    }
+    session->attributes[session->attributes_count] = attribute;
+    session->attributes_count++;
+    return n;
+}
+
+int lsdp_append_attribute_to_media(lsdp_media_t *media,
+        lsdp_attribute_t *attribute)
+{
+    int n;
+    if (media->attributes_count >= media->attributes_capacity) {
+        media->attributes_capacity *= 2;
+        media->attributes = realloc(media->attributes,
+                media->attributes_capacity * sizeof(lsdp_attribute_t*));
+    }
+    media->attributes[media->attributes_count] = attribute;
+    media->attributes_count++;
+    return n;
 }
