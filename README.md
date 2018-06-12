@@ -7,6 +7,7 @@ IETF.
 - [Getting Started](#getting-started)
     * [Prerequisites](#prerequisites)
     * [Documentation Prerequisites](#documentation-prerequisites)
+    * [Tests Prerequisites](#tests-prerequisites)
 - [Installing](#installing)
     * [Building from source](#building-form-source)
     * [Binaries](#binaries)
@@ -30,6 +31,12 @@ your machine.
 
 See [here](http://www.stack.nl/~dimitri/doxygen/download.html) to install
 `doxygen`.
+
+### Tests prerequisites
+
+The test are conducted with the `criterion` framework. To be able to run the
+tests, make you this framework is installed and available. See the
+[criterion](https://www.github.com/Snaipe/Criterion) github project.
 
 ## Installing
 
@@ -56,7 +63,8 @@ There are no packages available so far.
 
 ## Running the tests
 
-No test are yet implemented.
+After building the library from source just run `make test` in your `build`
+folder.
 
 ## Building the doc
 
