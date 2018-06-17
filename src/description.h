@@ -42,7 +42,7 @@ typedef struct lsdp_origin_t {
 typedef struct lsdp_time_t {
     char *start; /**< Start time of the session. */
     char *stop; /**< Stop time of the session. */
-    char *repeat_interval; /**< .*/
+    char *repeat_interval; /**< */
     char *active_duration;
     char *offset;
 } lsdp_time_t;
